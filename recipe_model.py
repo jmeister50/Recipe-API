@@ -25,6 +25,19 @@ class Recipe(db.Model):
     def get_all_recipes():
         return [Recipe.json(recipes) for recipes in Recipe.query.all()]
 
+    def add_recipe(_recipe_id, _recipe_name, _recipe_type, _ingredients, _instructions):
+        new_recipe = Recipe(
+            
+            recipe_id=_recipe_id,
+            recipe_name=_recipe_name,
+            recipe_type=_recipe_type, 
+            ingredients=_ingredients,
+            instructions=_instructions
+            )
+
+        db.session.add(new_recipe)
+        db.session.commit()
+
     def __repr__(self):
         recipe_object = {
         'recipe_id': self.recipe_id,
