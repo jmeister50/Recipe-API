@@ -25,13 +25,24 @@ def add_recipe():
     response = Response("", 201, mimetype='application/json')
     response.headers['Location'] = "/recipes/" + str(request_data['recipe_id'])
     return response
-    """else: 
-        invalidBookObjectErrorMsg = {
-            "error": "Invalid book object passed in request.",
-            "helpString": "Data passed in similar to this {'name': 'bookname', 'price': 7.99, 'isbn': 789456123"
-        }
-        response = Response(json.dumps(invalidBookObjectErrorMsg), status=400, mimetype='application/json');
-        return response"""
+    #TODO---- Add user help string. 
+
+#DELETE 
+
+@app.route('/recipes/<int:recipe_id>', methods=['DELETE'])
+def delete_recipe(recipe_id):
+    if Recipe.delete_recipe(recipe_id):
+        response = Response("", status=204)
+        return response
+    invalidBookObjectErrorMsg = {
+
+        "error": "Recipe with the ID provided was not found."
+
+    }
+    
+    response = Response("", status=404, mimetype= 'application/json')
+    return response;
+
 
 
 if __name__ == "__main__":

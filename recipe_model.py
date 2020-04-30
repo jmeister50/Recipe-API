@@ -25,6 +25,11 @@ class Recipe(db.Model):
     def get_all_recipes():
         return [Recipe.json(recipes) for recipes in Recipe.query.all()]
 
+    def delete_recipe(_recipe_id):
+        is_successful = Recipe.query.filter_by(recipe_id=_recipe_id).delete()
+        db.session.commit()
+        return bool(is_successful)
+
     def add_recipe(_recipe_id, _recipe_name, _recipe_type, _ingredients, _instructions):
         new_recipe = Recipe(
             
