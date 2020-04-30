@@ -30,6 +30,21 @@ class Recipe(db.Model):
         db.session.commit()
         return bool(is_successful)
 
+    def update_recipe_instructions(_recipe_id, _instructions):
+        recipe_to_update = Recipe.query.filter_by(recipe_id=_recipe_id).first()
+        recipe_to_update.instructions = _instructions 
+        db.session.commit()
+
+    def update_recipe_ingredients(_recipe_id, _ingredients):
+        recipe_to_update = Recipe.query.filter_by(recipe_id=_recipe_id).first()
+        recipe_to_update.ingredients = _ingredients 
+        db.session.commit()
+
+    def update_recipe_name(_recipe_id, _recipe_name):
+        recipe_to_update = Recipe.query.filter_by(recipe_id=_recipe_id).first()
+        recipe_to_update.recipe_name = _recipe_name 
+        db.session.commit()
+
     def add_recipe(_recipe_id, _recipe_name, _recipe_type, _ingredients, _instructions):
         new_recipe = Recipe(
             

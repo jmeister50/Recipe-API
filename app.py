@@ -27,6 +27,21 @@ def add_recipe():
     return response
     #TODO---- Add user help string. 
 
+@app.route('/recipes/<int:recipe_id>', methods=['PATCH'])
+def update_recipe(recipe_id):
+    request_data = request.get_json()
+#    print(request_data)
+
+    if("ingredients" in request_data):
+        Recipe.update_recipe_ingredients(recipe_id, request_data['ingredients'])
+    if("instructions" in request_data):
+        Recipe.update_recipe_instructions(recipe_id, request_data['instructions'])
+    if("recipe_name" in request_data):
+        Recipe.update_recipe_name(recipe_id, request_data['recipe_name'])
+    response = Response("", status=204)
+    response.headers['Location'] = "/recipes/" + str(recipe_id)
+    return response
+
 #DELETE 
 
 @app.route('/recipes/<int:recipe_id>', methods=['DELETE'])
